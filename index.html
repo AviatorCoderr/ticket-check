@@ -13,10 +13,12 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      padding: 20px;
     }
 
     #reader {
-      width: 600px;
+      width: 100%;
+      max-width: 600px; /* Adjust the maximum width as needed */
       margin-bottom: 20px;
     }
 
@@ -33,10 +35,30 @@
     #resetButton {
       padding: 10px;
       cursor: pointer;
+      display: block;
+    }
+
+    #resetButton.mobile {
+      display: none; /* Hide on mobile devices */
     }
 
     #validCount {
       font-size: 2rem;
+    }
+
+    /* Media query for mobile devices */
+    @media only screen and (max-width: 600px) {
+      #reader {
+        width: 100%;
+      }
+
+      #resetButton {
+        display: none;
+      }
+
+      #resetButton.mobile {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -46,7 +68,7 @@
     <div id="reader"></div>
     <div id="result"></div>
     <div id="counter">Valid Tickets Count: <span id="validCount">0</span></div>
-    <button id="resetButton">Reset Local Storage</button>
+    <button id="resetButton" class="mobile">Reset Local Storage</button>
     <audio id="validSound" src="VALID TICKET KINDLY .mp3" preload="auto"></audio>
     <audio id="invalidSound" src="wrongans.mp3" preload="auto"></audio>
   </main>
@@ -129,5 +151,4 @@
     });
   </script>
 </body>
-
 </html>
