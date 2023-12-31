@@ -32,16 +32,6 @@
       margin-bottom: 10px;
     }
 
-    #resetButton {
-      padding: 10px;
-      cursor: pointer;
-      display: block;
-    }
-
-    #resetButton.mobile {
-      display: none; /* Hide on mobile devices */
-    }
-
     #validCount {
       font-size: 2rem;
     }
@@ -53,7 +43,7 @@
       }
 
       #resetButton {
-        display: none;
+        visibility: hidden;
       }
 
       #resetButton.mobile {
@@ -68,7 +58,6 @@
     <div id="reader"></div>
     <div id="result"></div>
     <div id="counter">Valid Tickets Count: <span id="validCount">0</span></div>
-    <button id="resetButton" class="mobile">Reset Local Storage</button>
     <audio id="validSound" src="VALID TICKET KINDLY .mp3" preload="auto"></audio>
     <audio id="invalidSound" src="wrongans.mp3" preload="auto"></audio>
   </main>
