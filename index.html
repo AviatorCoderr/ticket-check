@@ -49,9 +49,9 @@
     let dataset = JSON.parse(localStorage.getItem('dataset')) || [];
 
     if (dataset.length === 0) {
-      for (let i = 1; i <= 85; i++) {
+      for (let i = 1; i <= 100; i++) {
         let inviteid = {
-          value: i < 10 ? '0' + i : '' + i
+          value: i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i
         };
         dataset.push(inviteid);
       }
