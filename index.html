@@ -34,7 +34,8 @@
       padding: 10px;
       cursor: pointer;
     }
-    #validCount{
+
+    #validCount {
       font-size: 2rem;
     }
   </style>
@@ -46,6 +47,8 @@
     <div id="result"></div>
     <div id="counter">Valid Tickets Count: <span id="validCount">0</span></div>
     <button id="resetButton">Reset Local Storage</button>
+    <audio id="validSound" src="VALID TICKET KINDLY .mp3" preload="auto"></audio>
+    <audio id="invalidSound" src="wrongans.mp3" preload="auto"></audio>
   </main>
   <script>
     // Load dataset and validTicketCount from localStorage or initialize them
@@ -81,6 +84,10 @@
       if (foundObject) {
         document.getElementById('result').innerHTML = `<h2>TICKET VALID!</h2>
         <i class="fa-solid fa-check fa-2xl" style="color: #17e82f;"></i>`;
+
+        // Play the valid sound
+        document.getElementById('validSound').play();
+
         let foundIndex = dataset.findIndex(obj => obj.value === result);
         dataset.splice(foundIndex, 1);
 
@@ -90,9 +97,15 @@
 
         // Save the updated count to localStorage
         localStorage.setItem('validTicketCount', validTicketCount);
-      } else {
+      } else if(!foundObject){
         document.getElementById('result').innerHTML = `<h2>TICKET INVALID!</h2>
         <i class="fa-solid fa-xmark fa-2xl" style="color: #e7390d;"></i>`;
+
+        // Play the invalid sound
+        document.getElementById('invalidSound').play();
+      }
+      else{
+        document.getElementById('result').innerHTML= ``;
       }
 
       // Save the updated dataset to localStorage
