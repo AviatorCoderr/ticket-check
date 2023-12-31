@@ -12,15 +12,27 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
     #reader {
       width: 600px;
+      margin-bottom: 20px;
     }
 
     #result {
       text-align: center;
       font-size: 1.5rem;
+    }
+
+    #counter {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    #resetButton {
+      padding: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -29,9 +41,11 @@
   <main>
     <div id="reader"></div>
     <div id="result"></div>
+    <div id="counter">Valid Tickets Count: <span id="validCount">0</span></div>
+    <button id="resetButton">Reset Local Storage</button>
   </main>
   <script>
-    // Load dataset from localStorage or initialize it
+    // Load dataset and validTicketCount from localStorage or initialize them
     let dataset = JSON.parse(localStorage.getItem('dataset')) || [];
 
     if (dataset.length === 0) {
@@ -42,6 +56,12 @@
         dataset.push(inviteid);
       }
     }
+
+    // Initialize the valid ticket count
+    let validTicketCount = parseInt(localStorage.getItem('validTicketCount')) || 0;
+
+    // Update the initial count value
+    document.getElementById('validCount').innerText = validTicketCount;
 
     const scanner = new Html5QrcodeScanner('reader', {
       qrbox: {
@@ -60,6 +80,13 @@
         <i class="fa-solid fa-check fa-2xl" style="color: #17e82f;"></i>`;
         let foundIndex = dataset.findIndex(obj => obj.value === result);
         dataset.splice(foundIndex, 1);
+
+        // Increment the valid ticket count and update the display
+        validTicketCount++;
+        document.getElementById('validCount').innerText = validTicketCount;
+
+        // Save the updated count to localStorage
+        localStorage.setItem('validTicketCount', validTicketCount);
       } else {
         document.getElementById('result').innerHTML = `<h2>TICKET INVALID!</h2>
         <i class="fa-solid fa-xmark fa-2xl" style="color: #e7390d;"></i>`;
@@ -77,6 +104,13 @@
     function error(err) {
       console.error(err);
     }
+
+    // Reset local storage when the button is clicked
+    document.getElementById('resetButton').addEventListener('click', function () {
+      localStorage.removeItem('dataset');
+      localStorage.removeItem('validTicketCount');
+      location.reload(); // Reload the page to reflect the changes
+    });
   </script>
 </body>
 
