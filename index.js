@@ -18,6 +18,18 @@
 
     scanner.render(success, error);
 
+    window.addEventListener('beforeunload', function (event) {
+      // Cancel the event (preventing the page from reloading)
+      event.preventDefault();
+      
+      // Standard-compliant browsers
+      event.returnValue = ''; 
+      
+      // For some older browsers
+      return '';
+    });
+
+
     function success(result) {
       let foundObject = dataset.find(obj => obj.value === result);
       if (foundObject) {
